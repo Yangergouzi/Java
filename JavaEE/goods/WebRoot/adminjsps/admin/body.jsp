@@ -18,6 +18,6 @@
   </head>
   
   <body style="margin: 0px;">
-    <img src="<c:url value='/images/welcome.jpg'/>" width="100%" height="100%"/>
+    <img src="http://wx4.sinaimg.cn/large/005PrRmngy1fjzn2083p3j31hc0dwavr.jpg" width="100%" height="100%"/>
   </body>
 </html>

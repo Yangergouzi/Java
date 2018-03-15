@@ -28,17 +28,29 @@
 			return true;
 		}
 	</script>
+	
+	<style type="text/css">
+		.main{
+			width: 26%;
+			margin:auto;
+		}
+	</style>
   </head>
   
   <body>
-<h1>管理员登录页面</h1>
-<hr/>
-  <p style="font-weight: 900; color: red">${msg }</p>
-<form action="<c:url value='/AdminServlet'/>" method="post" onsubmit="return checkForm();">
-	<input type="hidden" name="method" value="login"/>
-	管理员账户：<input type="text" name="adminname" value="" id="adminname"/><br/>
-	密　　　码：<input type="password" name="adminpwd" id="adminpwd"/><br/>
-	<input type="submit" value="进入后台"/>
-</form>
+  <div class="main">
+		<h1>管理员登录页面</h1>
+		<hr/>
+		  <p style="font-weight: 900; color: red">${msg }</p>
+		<form action="<c:url value='/AdminServlet'/>" method="post" onsubmit="return checkForm();">
+			<input type="hidden" name="method" value="login"/>
+			管理员账户：<input type="text" name="adminname" value="" id="adminname"/><br/>
+			密　　　码：<input type="password" name="adminpwd" id="adminpwd"/><br/>
+			<input type="submit" value="进入后台"/>
+		</form>
+		<div>
+			<p style="font-weight: 12px; color: grey">ps:管理员账户:yang 密码:666</p>
+		</div>
+	</div>
   </body>
 </html>
