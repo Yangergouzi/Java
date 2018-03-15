@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	
+	<package name="demo" extends="struts-default" namespace="/">
+		<!-- 拦截器配置 -->
+		<interceptors>
+			<interceptor name="loginInterceptor" class="com.yang.crm.interceptor.LoginInterceptor"></interceptor>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="loginInterceptor">
+					<param name="excludeMethods">login</param>
+				</interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<!-- 全局结果配置 -->
+		<global-results >
+			<result name="login">/login.jsp</result>
+			<result name="toMsg">/jsps/msg.jsp</result>
+		</global-results>
+		<!-- class里不写action的全路径，写bean1.xml里创建的action对象名，不然会创建两次实例 --> 
+		<action name="user_*" class="userAction" method="{1}">
+			<interceptor-ref name="myStack">
+			</interceptor-ref>
+			
+			<result name="loginsuccess" type="redirect">/jsps/main.jsp</result>
+			<result name="exit" type="redirect">/login.jsp</result>
+			<result name="toUpdatePwdPage" type="redirect">/jsps/updatePwd.jsp</result>
+		</action> 
+		
+		<action name="customer_*" class="customerAction" method="{1}">
+			<interceptor-ref name="myStack"></interceptor-ref>
+		
+			<result name="toAddPage" >/jsps/customer/add.jsp</result>		
+			<result name="list" >/jsps/customer/list.jsp</result>
+			<result name="toUpdatePage" >/jsps/customer/update.jsp</result>
+			<result name="toCustomerSelectPage">/jsps/select/customerSelect.jsp</result>
+			<result name="listSource">/jsps/customer/listSource.jsp</result>
+			<result name="listLevel">/jsps/customer/listLevel.jsp</result>
+		</action>
+		
+		<action name="linkMan_*" class="linkManAction" method="{1}">
+			<interceptor-ref name="myStack"></interceptor-ref>
+			
+			<result name="toAddPage">/jsps/linkMan/add.jsp</result>
+			<result name="list">/jsps/linkMan/list.jsp</result>
+			<result name="toUpdatePage">/jsps/linkMan/update.jsp</result>
+			<result name="toLinkManSelectPage">/jsps/select/linkManSelect.jsp</result>
+		</action>
+		
+		<action name="visit_*" class="visitAction" method="{1}">
+			<interceptor-ref name="myStack"></interceptor-ref>
+			
+			<result name="toAddPage">/jsps/visit/add.jsp</result>
+			<result name="list">/jsps/visit/list.jsp</result>
+			<result name="toUpdatePage">/jsps/visit/update.jsp</result>
+			<result name="toVisitSelectPage">/jsps/select/visitSelect.jsp</result>
+		</action>
+		
+	</package>
+	
+</struts>

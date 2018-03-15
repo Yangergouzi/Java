@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"        
+    xmlns:mvc="http://www.springframework.org/schema/mvc"     
+    xmlns:tx="http://www.springframework.org/schema/tx"  
+    xmlns:aop="http://www.springframework.org/schema/aop"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"              
+    xsi:schemaLocation="                                               
+            http://www.springframework.org/schema/beans    
+            http://www.springframework.org/schema/beans/spring-beans.xsd    
+            http://www.springframework.org/schema/context     
+            http://www.springframework.org/schema/context/spring-context.xsd    
+            http://www.springframework.org/schema/mvc    
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd  
+            http://www.springframework.org/schema/tx   
+            http://www.springframework.org/schema/tx/spring-tx.xsd  
+            http://www.springframework.org/schema/aop  
+            http://www.springframework.org/schema/aop/spring-aop.xsd "  
+    default-autowire="byName">  
+	
+	<!-- 配置方式创建对象 -->
+	<!-- action要指明是多实例的 -->
+	<bean name="visitAction" class="com.yang.crm.action.VisitAction" scope="prototype">
+		<property name="visitService" ref="visitService"></property>
+	</bean>
+	<bean name="visitService" class="com.yang.crm.service.VisitService">
+		<property name="visitDao" ref="visitDao"></property>
+	</bean>
+	<bean name="visitDao" class="com.yang.crm.dao.VisitDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>		
+</beans>  

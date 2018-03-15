@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+  <hibernate-mapping>
+  	<class name="com.yang.crm.entity.Visit" table="t_visit">
+  		<id name="vid" column="vid">
+  			<generator class="native"></generator>
+  		</id>
+  		<property name="vaddress" column="vaddress"></property>
+  		<property name="vcontent" column="vcontent"></property>
+  		
+  		<!-- 多对一关系映射配置 -->
+  			<many-to-one name="user" column="user_id" class="com.yang.crm.entity.User" cascade="save-update"></many-to-one>		
+  			<many-to-one name="customer" column="customer_id" class="com.yang.crm.entity.Customer" cascade="save-update"></many-to-one>
+  	</class>
+  
+  </hibernate-mapping>

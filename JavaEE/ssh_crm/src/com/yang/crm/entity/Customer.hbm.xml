@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+  <hibernate-mapping>
+  	<class name="com.yang.crm.entity.Customer" table="t_customer">
+  		<id name="cid" column="cid">
+  			<!-- id增长策略设置 
+  				native:生成表id值是主键自动增长
+  			-->
+  			<generator class="native"></generator>
+  		</id>
+  		<property name="custName" ></property>
+  		<property name="custSource"></property>
+  		<property name="custPhone"></property>
+  		<property name="custMobile"></property>
+  		<!-- 一对多映射配置 -->
+  		<set name="linkMen" cascade="save-update,delete" inverse="true">
+  			<key column="customer_id"></key>
+  			<one-to-many class="com.yang.crm.entity.LinkMan"/>
+  		</set>
+  		<!-- 一对多映射配置 -->
+  		<set name="userVisitSet" cascade="save-update,delete" inverse="true">
+  			<key column="user_id"></key>
+  			<one-to-many class="com.yang.crm.entity.Visit"/>
+  		</set>
+  		<!-- 多对一映射配置，配置数据字典表（客户级别） -->
+  		<many-to-one name="custLevel" class="com.yang.crm.entity.CustomerLevel" column="level_id" cascade="save-update"></many-to-one>
+  	</class>
+  
+  </hibernate-mapping>

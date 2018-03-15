@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+  <hibernate-mapping>
+  	<class name="com.yang.crm.entity.CustomerLevel" table="t_dictcustlevel">
+  		<id name="level_id" column="level_id">
+  			<!-- id增长策略设置 
+  				native:生成表id值是主键自动增长
+  			-->
+  			<generator class="native"></generator>
+  		</id>
+  		<property name="levelName" ></property>
+ 
+  		<!-- 一对多映射配置 -->
+  		<set name="customerSet" cascade="save-update,delete" inverse="true">
+  			<key column="level_id"></key>
+  			<one-to-many class="com.yang.crm.entity.Customer"/>
+  		</set>
+  		
+  	</class>
+  
+  </hibernate-mapping>
