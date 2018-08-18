@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"        
+    xmlns:mvc="http://www.springframework.org/schema/mvc"     
+    xmlns:tx="http://www.springframework.org/schema/tx"  
+    xmlns:aop="http://www.springframework.org/schema/aop"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"              
+    xsi:schemaLocation="                                               
+            http://www.springframework.org/schema/beans    
+            http://www.springframework.org/schema/beans/spring-beans.xsd    
+            http://www.springframework.org/schema/context     
+            http://www.springframework.org/schema/context/spring-context.xsd    
+            http://www.springframework.org/schema/mvc    
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd  
+            http://www.springframework.org/schema/tx   
+            http://www.springframework.org/schema/tx/spring-tx.xsd  
+            http://www.springframework.org/schema/aop  
+            http://www.springframework.org/schema/aop/spring-aop.xsd "  
+    default-autowire="byName">  
+	
+	<!-- c3p0连接池配置 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mysql:///testpaper_management"></property>
+		<property name="user" value="root"></property>
+		<property name="password" value="651216"></property>
+	</bean> 
+	<!-- 把sessionFactory对象创建交给spring管理 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
+	</bean>
+	
+	<!-- 1.配置事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 2.开启事务注解 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<!-- 配置方式创建对象 -->
+	<!-- action要指明是多实例的 -->
+	<bean id="userAction" class="cdut.yang.testPaperManager.action.UserAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	<bean id="userService" class="cdut.yang.testPaperManager.service.UserService">
+		<property name="userDao" ref="userDao"></property>
+	</bean>	
+	<bean id="userDao" class="cdut.yang.testPaperManager.dao.UserDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 配置验证码的Action -->  
+    <bean id="verifyCodeAction" class="cdut.yang.tools.VerifyCodeAction" scope="prototype"> </bean>  
+	
+	<!-- 配置subject的Action -->
+	  <bean id="subjectAction" class="cdut.yang.testPaperManager.action.SubjectAction" scope="prototype">
+		<property name="subjectService" ref="subjectService"></property>
+	</bean>
+	<bean id="subjectService" class="cdut.yang.testPaperManager.service.SubjectService">
+		<property name="subjectDao" ref="subjectDao"></property>
+	</bean>	
+	<bean id="subjectDao" class="cdut.yang.testPaperManager.dao.SubjectDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean> 
+	<!-- 配置question的Action -->
+	 <bean id="questionAction" class="cdut.yang.testPaperManager.action.QuestionAction" scope="prototype">
+		<property name="questionService" ref="questionService"></property>
+	</bean>
+	<bean id="questionService" class="cdut.yang.testPaperManager.service.QuestionService">
+		<property name="questionDao" ref="questionDao"></property>
+	</bean>	
+	<bean id="questionDao" class="cdut.yang.testPaperManager.dao.QuestionDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>  
+	<!-- 配置UploadAction -->
+	  <bean id="uploadAction" class="cdut.yang.testPaperManager.action.UploadAction" scope="prototype">
+	</bean>
+	<!-- 配置testPaper的Action -->
+	 <bean id="testPaperAction" class="cdut.yang.testPaperManager.action.TestPaperAction" scope="prototype">
+		<property name="testPaperService" ref="testPaperService"></property>
+	</bean>
+	<bean id="testPaperService" class="cdut.yang.testPaperManager.service.TestPaperService">
+		<property name="testPaperDao" ref="testPaperDao"></property>
+	</bean>	
+	<bean id="testPaperDao" class="cdut.yang.testPaperManager.dao.TestPaperDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>  
+	
+	<!-- 引入外部spring配置文件 -->
+	<!--  <import resource="classpath:customer.xml"/>
+	 -->
+</beans>  

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+  <hibernate-mapping>
+  		<class name="cdut.yang.testPaperManager.pojo.Question" table="question">
+  		<id name="questionId" column="questionId">
+  			<generator class="native"></generator>
+  		</id>
+  		<property name="type" column="type" length="10"></property>
+  		<property name="mainPoint" column="mainPoint"></property>
+  		<property name="content" column="content" length="5000"></property>
+  		<property name="imagePath" column="imagePath"></property>
+  		<property name="isObjective" column="isObjective"></property>
+  		<property name="trueAnswer" column="trueAnswer" length="10000"></property>
+  		<property name="analysis" column="analysis" length="1000"></property>
+  		<property name="difficulty" column="difficulty"></property>
+  		<property name="isPublic" column="isPublic"></property>
+  		<!-- 多对一关系映射配置 -->
+  		<many-to-one name="gradeSubject" column="gradeSubject_id" class="cdut.yang.testPaperManager.pojo.GradeSubject" cascade="save-update"></many-to-one>
+  		<!-- 一对多关系映射配置 
+  		当一方中指定了“inverse=false”（默认），那么那一方就有责任负责之间的关联关系
+  		-->
+  		 <set name="userQuestionSet" cascade="save-update,delete" inverse="true">
+  			<key column="question_id"></key>
+  			<one-to-many class="cdut.yang.testPaperManager.pojo.UserQuestion"/>
+  		</set> 
+  		 <set name="testPaperQuestionSet" cascade="save-update,delete" inverse="true">
+  			<key column="question_id"></key>
+  			<one-to-many class="cdut.yang.testPaperManager.pojo.TestPaperQuestion"/>
+  		</set> 
+       
+          
+  	</class>
+  
+  </hibernate-mapping>

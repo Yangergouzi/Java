@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- 第一部分： 数据库信息配置 ,交给spring配置-->
+		<!-- <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql:///  </property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">651216</property> -->
+		<!-- 第二部分： hibernate信息配置 --> 
+		<!--  输出sql语句-->
+		<property name="hibernate.show_sql">true</property>
+		<!-- 输出sql语句格式 -->
+		<property name="hibernate.format_sql">true</property>
+		<!-- hibernate自动创建表
+			update:有表则更新，无表则创建
+		 -->
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		<!-- 配置数据库方言 
+			让hibernate框架识别不同数据库特有的语句
+		-->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+		<!-- 与本地线程绑定Session，需要配置的内容 -->
+		<property name="hibernate.current_session_context_class">org.springframework.orm.hibernate5.SpringSessionContext</property>
+		
+		<!-- 第三部分：把映射文件放入核心配置文件 -->
+		<mapping resource="cdut/yang/testPaperManager/pojo/User.hbm.xml"/>
+		<mapping resource="cdut/yang/testPaperManager/pojo/Subject.hbm.xml"/>
+		<mapping resource="cdut/yang/testPaperManager/pojo/Grade.hbm.xml"/>
+		 <mapping resource="cdut/yang/testPaperManager/pojo/GradeSubject.hbm.xml"/> 
+		 <mapping resource="cdut/yang/testPaperManager/pojo/TestPaper.hbm.xml"/> 
+		 <mapping resource="cdut/yang/testPaperManager/pojo/Question.hbm.xml"/> 
+		 <mapping resource="cdut/yang/testPaperManager/pojo/TestPaperQuestion.hbm.xml"/> 
+		 <mapping resource="cdut/yang/testPaperManager/pojo/UserQuestion.hbm.xml"/> 
+		 <mapping resource="cdut/yang/testPaperManager/pojo/UserTestPaper.hbm.xml"/> 
+	</session-factory>
+
+</hibernate-configuration>	

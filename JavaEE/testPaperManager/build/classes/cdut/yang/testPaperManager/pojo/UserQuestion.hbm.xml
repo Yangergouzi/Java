@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+  <hibernate-mapping>
+  		<class name="cdut.yang.testPaperManager.pojo.UserQuestion" table=" userquestion">
+  		<id name="userQuestionId" column="userQuestionId">
+  			<generator class="native"></generator>
+  		</id>
+  		<property name="relationship" column="relationship"></property>
+  		<property name="difficulty" column="difficulty"></property>
+  		<!-- 多对一关系映射配置 -->
+  		<many-to-one name="user" column="user_id" class="cdut.yang.testPaperManager.pojo.User" cascade="save-update"></many-to-one>
+  		<many-to-one name="question" column="question_id" class="cdut.yang.testPaperManager.pojo.Question" cascade="save-update"></many-to-one>
+      
+  	</class>
+  
+  </hibernate-mapping>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+  <hibernate-mapping>
+  		<class name="cdut.yang.testPaperManager.pojo.TestPaper" table="testpaper">
+  		<id name="testPaperId" column="testPaperId">
+  			<generator class="native"></generator>
+  		</id>
+  		<property name="paperName" column="paperName" length="50"></property>
+  		<property name="totalScore" column="totalScore" ></property>
+  		<property name="timeLimit" column="timeLimit" ></property>
+  		<property name="collectionNum" column="collectionNum" ></property>
+  		<property name="createTime" type="java.sql.Timestamp"   generated="always">
+		<column name="createTime" not-null="true" sql-type="timestamp" default="CURRENT_TIMESTAMP"/>
+		</property>
+  		<property name="difficulty" column="difficulty" ></property>
+  		<property name="isPublic" column="isPublic" ></property>
+  		<property name="filePath" column="filePath"></property>
+  		<property name="status" column="status"></property>
+  		<!-- 多对一关系映射配置 -->
+  		<many-to-one name="gradeSubject" column="gradeSubject_id" class="cdut.yang.testPaperManager.pojo.GradeSubject" cascade="save-update"></many-to-one>
+  		<!-- 一对多关系映射配置 
+  		当一方中指定了“inverse=false”（默认），那么那一方就有责任负责之间的关联关系
+  		-->
+  		 <set name="userTestPaperSet" cascade="save-update,delete" inverse="true">
+  			<key column="testpaper_id"></key>
+  			<one-to-many class="cdut.yang.testPaperManager.pojo.UserTestPaper"/>
+  		</set> 
+  		 <set name="testPaperQuestionSet" cascade="save-update,delete" inverse="true">
+  			<key column="testpaper_id"></key>
+  			<one-to-many class="cdut.yang.testPaperManager.pojo.TestPaperQuestion"/>
+  		</set> 
+       
+          
+  	</class>
+  
+  </hibernate-mapping>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	
+	<package name="demo" extends="struts-default" namespace="/">
+		<!-- 拦截器配置 -->
+<!-- 	<interceptors>
+			<interceptor name="loginInterceptor" class="com.yang.crm.interceptor.LoginInterceptor"></interceptor>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="loginInterceptor">
+					<param name="excludeMethods">login</param>
+				</interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>  -->
+		<!-- 全局结果配置 -->
+		<global-results >
+			<result name="toMsg">/pages/msg.jsp</result>			
+		</global-results> 
+		<!-- class里不写action的全路径，写bean1.xml里创建的action对象名，不然会创建两次实例 --> 
+		 <action name="user_*" class="userAction" method="{1}">		
+			<!-- <result name="toMsg" >/pages/msg.jsp</result> -->	
+			<result name="toRegist">/pages/user/regist.jsp</result>		
+			<result name="toLogin">/pages/user/login.jsp</result>
+			<result name="loginOk">/index.jsp</result>
+			<result name="exit">/index.jsp</result>
+			<result name="toUpdatePwd">/pages/user/updatePwd.jsp</result>
+			<result name="toEdit">/pages/user/edit.jsp</result>
+		</action>  
+		<!-- 验证码的Action -->  
+        <action name="vCodeImg" class="verifyCodeAction"></action>  
+        
+       <!-- subject的Action -->
+        <action name="subject_*" class="subjectAction" method="{1}">		
+			<result name="toAMS" >/pages/subject/addMySubject.jsp</result>	
+			<result name="toMySubjects">/pages/subject/mySubject.jsp</result>
+		</action>  
+		<!-- 配置uploadAction -->
+		<action name="upload_*" class="uploadAction" method="{1}">					
+		</action>
+		 <!-- question的Action -->
+      <action name="question_*" class="questionAction" method="{1}">		
+			<result name="toAdd">/pages/questionAndPaper/addQuestion.jsp</result>
+			<result name="toMyQuestions">/pages/questionAndPaper/myQuestions.jsp</result>
+			<result name="question">/pages/questionAndPaper/question.jsp</result>
+			<result name="update">/pages/questionAndPaper/updateQuestion.jsp</result>
+			<result name="toPublicQuestions">/pages/questionAndPaper/publicQuestions.jsp</result>
+			<result name="addToBasket">/pages/questionAndPaper/addToBasket.jsp</result>
+		</action>  
+		 <!-- testPaper的Action -->
+      <action name="testPaper_*" class="testPaperAction" method="{1}">		
+			<result name="toAddTestPaper">/pages/questionAndPaper/addTestPaper.jsp</result>
+			<result name="toMyTestPapers">/pages/questionAndPaper/myTestPapers.jsp</result>
+			<result name="testPaper">/pages/questionAndPaper/testPaper.jsp</result>
+			<result name="update">/pages/questionAndPaper/updateTestPaper.jsp</result>
+			<result name="toPublicTestPapers">/pages/questionAndPaper/publicTestPapers.jsp</result>
+			<result name="combine">/pages/questionAndPaper/combine.jsp</result>
+			<result name="tempPaper">/pages/questionAndPaper/tempPaper.jsp</result>
+		</action>    
+			 <!-- testPaperQuestion的Action -->
+      
+	
+	</package>
+	
+</struts>

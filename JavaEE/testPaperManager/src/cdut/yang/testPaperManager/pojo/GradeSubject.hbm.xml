@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+  <hibernate-mapping>
+  		<class name="cdut.yang.testPaperManager.pojo.GradeSubject" table="gradesubject">
+  		<id name="gradeSubjectId" column="gradeSubjectId">
+  			<generator class="native"></generator>
+  		</id>
+  		<!-- 多对一关系映射配置 -->
+  		<many-to-one name="grade" column="grade_id" class="cdut.yang.testPaperManager.pojo.Grade" cascade="save-update"></many-to-one>
+  		<many-to-one name="subject" column="subject_id" class="cdut.yang.testPaperManager.pojo.Subject" cascade="save-update"></many-to-one>
+      <!-- 一对多关系映射配置 
+  		当一方中指定了“inverse=false”（默认），那么那一方就有责任负责之间的关联关系
+  		-->
+  		 <set name="questionSet" cascade="save-update,delete" inverse="true">
+  			<key column="gradeSubject_id"></key>
+  			<one-to-many class="cdut.yang.testPaperManager.pojo.Question"/>
+  		</set> 
+       <!-- 多对多映射 -->  
+        <set name="userSet" table="user_gradesubject" cascade="save-update">  
+            <key column="gradeSubject_id"></key>  
+            <many-to-many column="user_id" class="cdut.yang.testPaperManager.pojo.User"></many-to-many>  
+        </set>
+        
+          
+  	</class>
+  
+  </hibernate-mapping>
